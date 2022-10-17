@@ -14,21 +14,7 @@ protocol EmployeeViewModelDelegate: AnyObject {
 class EmployeeViewModel {
     var results = [Employee]()
     weak var delegate: EmployeeViewModelDelegate?
-    
-    func fetchData() {
-//        ApiManager.manager.getData(completion: { [self] data in
-//            DispatchQueue.main.async {
-//                switch data {
-//                case .success(let employeeData):
-//                    self.results = employeeData.employees
-//                    delegate?.update(with: nil)
-//                case .failure(let error):
-//                    delegate?.update(with: error)
-//                }
-//            }
-//        })
-    }
-    
+
     func fetchEmployeeInformation(){
         NetworkLayer.standard.request(to: .get, controller: Controllers.employeeInformation.rawValue, downCase: EmployeeInfoModel.self) {  response in
             DispatchQueue.main.async {

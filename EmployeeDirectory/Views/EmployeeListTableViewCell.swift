@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class EmployeeListTableViewCell: UITableViewCell {
     
@@ -23,6 +24,27 @@ class EmployeeListTableViewCell: UITableViewCell {
                     self.teamInfo.text = empInfo.team
                     self.summary.text = empInfo.biography
                     self.fullName.text = empInfo.fullName
+                    let processor = DownsamplingImageProcessor(size: self.employeeImage.bounds.size)
+                                 |> RoundCornerImageProcessor(cornerRadius: 20)
+                    self.employeeImage.kf.indicatorType = .activity
+                    self.employeeImage.kf.setImage(
+                        with: URL(string: empInfo.photoURLSmall)!,
+                        placeholder: UIImage(named: "placeholderImage"),
+                        options: [
+                            .processor(processor),
+                            .scaleFactor(UIScreen.main.scale),
+                            .transition(.fade(1)),
+                            .cacheOriginalImage
+                        ])
+                    {
+                        result in
+                        switch result {
+                        case .success(let value):
+                            print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                        case .failure(let error):
+                            print("Job failed: \(error.localizedDescription)")
+                        }
+                    }
                 }
             }
         }

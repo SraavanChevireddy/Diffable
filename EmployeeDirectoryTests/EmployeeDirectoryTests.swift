@@ -9,9 +9,10 @@ import XCTest
 @testable import EmployeeDirectory
 
 class EmployeeDirectoryTests: XCTestCase {
-
+    var viewmodel = EmployeeViewModel!
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewmodel = EmployeeViewModel()
     }
 
     override func tearDownWithError() throws {
